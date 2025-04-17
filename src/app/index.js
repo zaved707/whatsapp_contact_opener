@@ -5,7 +5,7 @@ import {
   View,
   useColorScheme,
   KeyboardAvoidingView,
-  
+  Modal,
 } from "react-native";
 import { useTheme, TextInput, Menu, Button, Divider } from "react-native-paper";
 import rippleColor from "../utilities/rippleEffectColorCalculator";
@@ -16,13 +16,13 @@ import CountryMenu from "../components/countryMenu";
 import { getMaterial3Theme } from "@pchmn/expo-material3-theme";
 
 export default function App() {
-   const colorScheme=useColorScheme();
+  const colorScheme = useColorScheme();
   const [number, setNumber] = React.useState("");
   const theme = useTheme();
   const [countryCode, setCountryCode] = React.useState("+1");
   const theme2 = getMaterial3Theme();
-  
 
+  const [modalVisible, setModalVisible] = React.useState(false);
   return (
     <View
       style={{
@@ -34,10 +34,37 @@ export default function App() {
       }}
     >
       <AppBar text="Whatsapp Easy Open" />
-      <View  style={{width:'90%',borderRadius:30 , margin: 20,overflow: 'hidden'}}>
-      <Pressable android_ripple={{color: rippleColor(theme.colors.primaryContainer,colorScheme)}} style={{padding: 20,backgroundColor: theme.colors.primaryContainer}}><Text style={{color: theme.colors.onBackground , fontSize: 30,alignSelf:'center',textAlign:'center'}}>Type The Number Below</Text></Pressable></View>
       <View
-      
+        style={{
+          width: "90%",
+          borderRadius: 30,
+          margin: 20,
+          overflow: "hidden",
+        }}
+      >
+        <Pressable
+          android_ripple={{
+            color: rippleColor(theme.colors.primaryContainer, colorScheme),
+          }}
+          style={{
+            padding: 20,
+            backgroundColor: theme.colors.primaryContainer,
+          }}
+        >
+          <Text
+            style={{
+              color: theme.colors.onBackground,
+              fontSize: 30,
+              alignSelf: "center",
+              textAlign: "center",
+            }}
+          >
+            Type The Number Below
+          </Text>
+        </Pressable>
+      </View>
+
+      <View
         style={{
           display: "flex",
           alignContent: "center",
@@ -46,7 +73,7 @@ export default function App() {
           width: "90%",
           gap: 30,
           padding: 20,
-          
+
           borderRadius: 30,
         }}
       >
@@ -62,9 +89,33 @@ export default function App() {
             alignItems: "center",
           }}
         >
+          <Pressable
+            onPress={() => setModalVisible(true)}
+            android_ripple={{
+              color: rippleColor(theme.colors.primaryContainer, colorScheme),
+            }}
+            style={{
+              maxWidth: 100,
+              padding: 5,
+              backgroundColor: theme.colors.primaryContainer,
+            }}
+          >
+            <Text
+              style={{
+                color: theme.colors.onBackground,
+                fontSize: 20,
+                alignSelf: "center",
+                textAlign: "center",
+              }}
+            >
+             {countryCode}
+            </Text>
+          </Pressable>
           <CountryMenu
             countryCode={countryCode}
             setCountryCode={setCountryCode}
+            modalVisible={modalVisible}
+            setModalVisible={setModalVisible}
           />
           <TextInput
             style={{ width: "70%" }}
@@ -87,7 +138,9 @@ export default function App() {
               padding: 10,
               backgroundColor: theme.colors.primary,
             }}
-            android_ripple={{ color: rippleColor(theme.colors.primary,colorScheme) }}
+            android_ripple={{
+              color: rippleColor(theme.colors.primary, colorScheme),
+            }}
             onPress={() =>
               Linking.openURL(`https://wa.me/${countryCode}-${number}`)
             }
