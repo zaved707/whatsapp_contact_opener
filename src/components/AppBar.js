@@ -1,7 +1,8 @@
 import * as React from "react";
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable,useColorScheme } from "react-native";
 import { useTheme } from "react-native-paper";
 
+import CircleIconButton from "./circleIconButton";
 
 export default function Header(props) {
   const theme = useTheme();
@@ -12,7 +13,7 @@ export default function Header(props) {
       style={{
         height: "8%",
         width: "100%",
-        backgroundColor: theme.colors.background,
+        backgroundColor: theme.colors.surfaceVariant,
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
@@ -30,13 +31,13 @@ export default function Header(props) {
       >
         {props.text}
       </Text>
-      {/* {showSettings && (
+      {showSettings && (
         <View style={{ display: "flex", flexDirection: "row" }}>
-          <CircleIconButton href="/settings"icon="information" />
+          <CircleIconButton href="/settings"icon="logo-github" />
 
          
         </View>
-      )} */}
+      )}
     </View>
   );
 }

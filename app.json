@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Crops",
-    "slug": "Crops",
+    "name": "Whats Opener",
+    "slug": "WhatsOpener",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -11,7 +11,7 @@
     "splash": {
       "image": "./assets/icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#201a19"
+      "backgroundColor": "#25d366"
     },
     "ios": {
       "supportsTablet": true
@@ -20,9 +20,9 @@
        "softwareKeyboardLayoutMode": "pan",
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
-        "backgroundColor": "#201a19"
+        "backgroundColor": "#25d366"
       },
-      "package": "com.zavedahmad.reactNativerouter"
+      "package": "com.zavedahmad.whatsOpener"
     },
     "web": {
       "favicon": "./assets/favicon.png"

@@ -1,9 +1,11 @@
 import React from "react";
+
 import Ionicons from "@expo/vector-icons/Ionicons";
 import {
   Pressable,
   Text,
   FlatList,
+  useColorScheme,
   ScrollView,
   View,
   KeyboardAvoidingView,
@@ -16,6 +18,7 @@ import countryCodes from "../utilities/countryCodes";
 
 export default function CountryMenu(props) {
   const theme = useTheme();
+  const colorScheme=useColorScheme();
   const [visible, setVisible] = React.useState(false);
 
   const countries = countryCodes;
@@ -27,7 +30,7 @@ export default function CountryMenu(props) {
 
   const handleSearch = (query) => {
     console.log(query, "this was query");
-
+    
     const filtered = countries.filter(
       (item) => item.name.toLowerCase().includes(query.toLowerCase())
       //   (item) => item.name.toLowerCase().includes(safeQuery.toLowerCase())
@@ -53,7 +56,7 @@ export default function CountryMenu(props) {
               padding: 10,
               backgroundColor: theme.colors.primary,
             }}
-            android_ripple={{ color: rippleColor(theme.colors.primary) }}
+            android_ripple={{ color: rippleColor(theme.colors.primary,colorScheme) }}
             onPress={() => openMenu()}
           >
             
@@ -64,7 +67,7 @@ export default function CountryMenu(props) {
         </View>
       }
     >
-      <View style={{ Width: 200, diplay: "flex", marginBottom: 20 }}>
+      <View style={{ Width: 200, display: "flex" }}>
         <View style={{ paddingHorizontal: 10, padding: 10, maxHeight: "80%" }}>
           <TextInput
             label={"Search Country"}
@@ -75,7 +78,7 @@ export default function CountryMenu(props) {
         </View>
 
         <FlatList
-          style={{ width: 200, height: 200 }}
+          style={{ width: 250, height: 200 ,marginTop:10}}
           data={filteredData}
           keyExtractor={(item) => item.code}
           renderItem={({ item }) => {

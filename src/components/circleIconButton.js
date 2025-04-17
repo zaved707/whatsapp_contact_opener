@@ -1,11 +1,12 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useTheme } from "react-native-paper";
-import { Pressable, View } from "react-native";
+import { Pressable, View,useColorScheme,Linking } from "react-native";
 import { router } from "expo-router";
+import calculateRippleColor from "../utilities/rippleEffectColorCalculator";
 export default function button(props) {
   const theme = useTheme();
   const buttonLogo = props.icon ?? "warning";
-
+   const colorScheme=useColorScheme();
   return (
     <View style={{ borderRadius: 100, overflow: "hidden" }}>
       <Pressable
@@ -18,15 +19,15 @@ export default function button(props) {
           borderRadius: 100,
         }}
         onPress={() => {
-          router.push(props.href);
+          Linking.openURL('https://github.com/zaved707/whatsapp_contact_opener');
         }}
         android_ripple={{
-          color: "#fff",
+          color: calculateRippleColor(theme.colors.surfaceVariant,colorScheme),
         }}
       >
         <Ionicons
           name={buttonLogo}
-          size={25}
+          size={30}
           color={theme.colors.onBackground}
         />
       </Pressable>

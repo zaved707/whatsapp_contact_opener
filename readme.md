@@ -1,15 +1,14 @@
-# Indian Crops
+# Whatsapp contact Opener
 
 ![plot](./assets/screenshot.jpg)
 
-### This is a Android App which shows several planting seasons and prominent crops planted in that season
-
+### This is a material you based Android App which opens a given number directly in whatsapp without having to save the number
 ## Build Steps
 
 1. clone this repo
 
    ```bash
-   git clone https://github.com/zaved707/Crops_info.git
+   git clone https://github.com/zaved707/whatsapp_contact_opener.git
    ```
 2. go to project directory do npm install
 

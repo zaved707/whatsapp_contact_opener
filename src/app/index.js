@@ -3,21 +3,26 @@ import {
   Text,
   ScrollView,
   View,
+  useColorScheme,
   KeyboardAvoidingView,
+  
 } from "react-native";
 import { useTheme, TextInput, Menu, Button, Divider } from "react-native-paper";
 import rippleColor from "../utilities/rippleEffectColorCalculator";
 import * as React from "react";
 import * as Linking from "expo-linking";
-import  AppBar from '../components/AppBar'
+import AppBar from "../components/AppBar";
 import CountryMenu from "../components/countryMenu";
+import { getMaterial3Theme } from "@pchmn/expo-material3-theme";
+
 export default function App() {
+   const colorScheme=useColorScheme();
   const [number, setNumber] = React.useState("");
   const theme = useTheme();
   const [countryCode, setCountryCode] = React.useState("+1");
-  const setCountryCode2 = (value) => {
-    setCountryCode(value);
-  };
+  const theme2 = getMaterial3Theme();
+  
+
   return (
     <View
       style={{
@@ -28,17 +33,20 @@ export default function App() {
         alignItems: "center",
       }}
     >
-      <AppBar text='Whatsapp Easy Open'/>
+      <AppBar text="Whatsapp Easy Open" />
+      <View  style={{width:'90%',borderRadius:30 , margin: 20,overflow: 'hidden'}}>
+      <Pressable android_ripple={{color: rippleColor(theme.colors.primaryContainer,colorScheme)}} style={{padding: 20,backgroundColor: theme.colors.primaryContainer}}><Text style={{color: theme.colors.onBackground , fontSize: 30,alignSelf:'center',textAlign:'center'}}>Type The Number Below</Text></Pressable></View>
       <View
+      
         style={{
           display: "flex",
           alignContent: "center",
           justifyContent: "center",
-          backgroundColor: theme.colors.onSecondary,
+          backgroundColor: theme.colors.primaryContainer,
           width: "90%",
           gap: 30,
           padding: 20,
-          marginTop: 100,
+          
           borderRadius: 30,
         }}
       >
@@ -79,12 +87,18 @@ export default function App() {
               padding: 10,
               backgroundColor: theme.colors.primary,
             }}
-            android_ripple={{ color: rippleColor(theme.colors.primary) }}
+            android_ripple={{ color: rippleColor(theme.colors.primary,colorScheme) }}
             onPress={() =>
               Linking.openURL(`https://wa.me/${countryCode}-${number}`)
             }
           >
-            <Text style={{ fontSize: 30,alignSelf:'center', color: theme.colors.onPrimary }}>
+            <Text
+              style={{
+                fontSize: 30,
+                alignSelf: "center",
+                color: theme.colors.onPrimary,
+              }}
+            >
               open in whatsapp
             </Text>
           </Pressable>
