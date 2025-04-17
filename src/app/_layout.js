@@ -53,7 +53,7 @@ export default function RootLayout() {
       <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
         <Stack
           screenOptions={{
-            headerShown: true,
+            headerShown: false,
           }}
         >
           <Stack.Screen

@@ -1,7 +1,9 @@
 import React from "react";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import {
   Pressable,
   Text,
+  FlatList,
   ScrollView,
   View,
   KeyboardAvoidingView,
@@ -43,33 +45,42 @@ export default function CountryMenu(props) {
           <Pressable
             style={{
               display: "flex",
+              width: 80,
+              height: 50,
+              flexDirection: 'row',
               justifyContent: "center",
+              alignItems:'center',
               padding: 10,
               backgroundColor: theme.colors.primary,
             }}
             android_ripple={{ color: rippleColor(theme.colors.primary) }}
             onPress={() => openMenu()}
           >
-            <Text style={{ color: theme.colors.onPrimary }}>
-              Select Country
-            </Text>
+            
+              <Text style={{fontSize:20, color: theme.colors.onPrimary }}>{props.countryCode}</Text>
+              <Ionicons name="caret-down-outline" size={24} color="black" />
+            
           </Pressable>
         </View>
       }
     >
-      <View style={{ minWidth: 200, diplay: "flex", marginBottom: 20 }}>
+      <View style={{ Width: 200, diplay: "flex", marginBottom: 20 }}>
         <View style={{ paddingHorizontal: 10, padding: 10, maxHeight: "80%" }}>
           <TextInput
-            label={'Search Country'}
+            label={"Search Country"}
             style={{ width: "100%", height: 50 }}
             mode="outlined"
             onChangeText={(query) => handleSearch(query)}
           />
         </View>
-        <ScrollView style={{ maxWidth: 200, maxHeight: 500 }}>
-          {filteredData.map((country) => {
+
+        <FlatList
+          style={{ width: 200, height: 200 }}
+          data={filteredData}
+          keyExtractor={(item) => item.code}
+          renderItem={({ item }) => {
             return (
-              <View key={country.code}>
+              <View>
                 <Pressable
                   style={{
                     backgroundColor: theme.colors.elevation.level2,
@@ -79,24 +90,35 @@ export default function CountryMenu(props) {
                     color: rippleColor(theme.colors.elevation.level2),
                   }}
                   onPress={() => {
-                    props.setCountryCode(country.dial_code);
+                    props.setCountryCode(item.dial_code);
                     setFilteredData(countries);
                     closeMenu();
-                   
                   }}
                 >
-                <View style={{display:'flex', flexDirection: 'row',justifyContent:'space-between'}}>
-                  <Text style={{ color: theme.colors.onBackground }}>
-                    {country.name}
-                  </Text>
-                  <Text style={{ color: theme.colors.outline}}>{country.dial_code}</Text>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Text
+                      style={{
+                        maxWidth: 150,
+                        color: theme.colors.onBackground,
+                      }}
+                    >
+                      {item.name}
+                    </Text>
+                    <Text style={{ color: theme.colors.outline }}>
+                      {item.dial_code}
+                    </Text>
                   </View>
                 </Pressable>
-                
               </View>
             );
-          })}
-        </ScrollView>
+          }}
+        />
       </View>
     </Menu>
   );
